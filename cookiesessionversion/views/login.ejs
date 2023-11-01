@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+</head>
+
+<body>
+    <h1>登录页面</h1>
+    <div>
+        <div>用户名:<input id="username" name="username"></div>
+        <div>密码:<input id="password" name="password" type="password"></div>
+        <div><input value="登录" id="login" type="submit"></div>
+    </div>
+    <script>
+        var username = document.querySelector("#username")
+        var password = document.querySelector("#password")
+        var login = document.querySelector("#login")
+        login.onclick = function () {
+            console.log(username.value, password.value)
+            fetch("/api/login", {
+                method: "POST",
+                body: JSON.stringify({
+                    username: username.value,
+                    password: password.value,
+                }),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            }).then(res => res.json()).then(res => {
+                console.log(res)
+                if(res.ok===1){
+                    location.href="/"
+                }else{
+                    console.log("用户名和密码不匹配")
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>
