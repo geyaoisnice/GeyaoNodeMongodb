@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录页面</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<script>
+    axios.interceptors.request.use(function (config) {
+        // 在发送请求之前做些什么
+        return config;
+    }, function (error) {
+        // 对请求错误做些什么
+        return Promise.reject(error);
+    });
+
+    // 添加响应拦截器
+    axios.interceptors.response.use(function (response) {
+        // 2xx 范围内的状态码都会触发该函数。
+        // 对响应数据做点什么
+        console.log(response.headers,"data is")
+        const {authorization}=response.headers
+        authorization&&localStorage.setItem("token",authorization)
+        return response;
+    }, function (error) {
+        // 超出 2xx 范围的状态码都会触发该函数。
+        // 对响应错误做点什么
+        return Promise.reject(error);
+    });
+</script>
+
+<body>
+    <h1>登录页面</h1>
+    <div>
+        <div>用户名:<input id="username" name="username"></div>
+        <div>密码:<input id="password" name="password" type="password"></div>
+        <div><input value="登录" id="login" type="submit"></div>
+    </div>
+    <script>
+        var username = document.querySelector("#username")
+        var password = document.querySelector("#password")
+        var login = document.querySelector("#login")
+        login.onclick = function () {
+            console.log(username.value, password.value)
+            // fetch("/api/login", {
+            //     method: "POST",
+            //     body: JSON.stringify({
+            //         username: username.value,
+            //         password: password.value,
+            //     }),
+            //     headers: {
+            //         "Content-type": "application/json"
+            //     }
+            // }).then(res => res.json()).then(res => {
+            //     console.log(res)
+            //     if(res.ok===1){
+            //         //存储token值
+
+            //         location.href="/"
+            //     }else{
+            //         console.log("用户名和密码不匹配")
+            //     }
+            // })
+            axios.post("/api/login", { username: username.value, password: password.value, }).then(res => {
+                console.log(res, "data is")
+                if (res.data.ok === 1) {
+                    //存储token值
+                    location.href = "/"
+                } else {
+                    console.log("用户名和密码不匹配")
+                }
+            })
+        }
+    </script>
+</body>
+
+</html>

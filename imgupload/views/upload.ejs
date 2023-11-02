@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>上传</div>
+    <form action="/api/user" method="POST" enctype="multipart/form-data">
+        <div>
+            <div>用户名:<input id="username" name="username"></div>
+            <div>密码:<input id="password" name="password" type="password"></div>
+            <div>年龄:<input id="age" name="age" type="number"></div>
+            <div>图片:<input id="avatar" name="avatar" type="file"></div>
+            <div><input value="添加用户" id="login" type="submit"></div>
+        </div>
+    </form>
+</body>
+<script>
+    // var username = document.querySelector("#username")
+    // var password = document.querySelector("#password")
+    // var age = document.querySelector("#age")
+    // var avatar = document.querySelector("#avatar")
+    // var login = document.querySelector("#login")
+    // login.onclick = function () {
+    //     console.log(username.value, password.value)
+    //     axios.post("/api/user", {
+    //         username: username.value, password: password.value, age: age.value,
+    //         avatar: avatar.value
+    //     }).then(res => {
+           
+    //     })
+    // }
+</script>
+
+</html>
